@@ -6,7 +6,7 @@
 
 ```bash
 npm install
-ADMIN_LOGIN=admin ADMIN_PASSWORD=0898kV01vladislav SESSION_SECRET=2208 PUBLIC_URL=https://larissaandvladislav.com npm start
+ADMIN_LOGIN=admin ADMIN_PASSWORD=your_secure_password SESSION_SECRET=2208 PUBLIC_URL=https://larissaandvladislav.com npm start
 ```
 
 Откройте:
