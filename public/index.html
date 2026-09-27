@@ -3,391 +3,510 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#111416">
-  <meta name="description" content="Проект Элеватор — ремонт силосов, расчёт, обслуживание и модернизация аспирации, ремонт кровли и обучение персонала.">
+  <meta name="theme-color" content="#1c252b">
+  <meta name="description" content="Проект Элеватор — ремонт силосов, расчёт, обслуживание и модернизация аспирации, ремонт кровли, обследование и обучение персонала.">
   <title>Проект Элеватор — ремонт и модернизация элеваторов</title>
   <link rel="stylesheet" href="/styles.css">
   <script defer src="/app.js"></script>
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="Проект Элеватор">
+      <svg class="brand-icon" viewBox="0 0 52 52" aria-hidden="true">
+        <path d="M8 44V21l9-9 9 9v23M29 44V16l7-7 7 7v28M5 44h42" />
+        <path d="M13 27h8M13 33h8M34 23h5M34 29h5M34 35h5" />
+      </svg>
+      <span><b>Проект</b> Элеватор</span>
+    </a>
 
-  <header class="site-header" id="header">
-    <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Проект Элеватор — на главную">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" role="img">
-            <path d="M8 39V17l7-8 7 8v22M26 39V13l7-6 7 6v26M5 39h38" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 22h6M30 18h6M30 24h6M30 30h6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-          </svg>
-        </span>
-        <span>Проект Элеватор</span>
-      </a>
-
-      <nav class="desktop-nav" aria-label="Основная навигация">
-        <a href="#services">Услуги</a>
-        <a href="#training">Обучение</a>
-        <a href="#portfolio">Портфолио</a>
-        <a href="#process">Этапы</a>
-      </nav>
-
-      <a class="header-cta" href="#contacts">Связаться <span>↗</span></a>
-      <button class="menu-button" id="menuButton" aria-label="Открыть меню" aria-expanded="false">
-        <span></span><span></span>
-      </button>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
+    <nav class="desktop-nav" aria-label="Навигация">
       <a href="#services">Услуги</a>
+      <a href="#aspiration">Аспирация</a>
       <a href="#training">Обучение</a>
       <a href="#portfolio">Портфолио</a>
-      <a href="#process">Этапы работ</a>
       <a href="#contacts">Контакты</a>
+    </nav>
+
+    <a class="header-cta" href="#contacts">Обсудить объект</a>
+
+    <button class="menu-button" id="menuButton" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Услуги</a>
+    <a href="#aspiration">Аспирация</a>
+    <a href="#training">Обучение</a>
+    <a href="#portfolio">Портфолио</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow reveal">Ремонт и модернизация зерновых объектов</div>
+        <h1 class="reveal">Проект<br><span>Элеватор</span></h1>
+        <p class="hero-lead reveal">Инженерные работы на действующих элеваторах: силосы, аспирация, кровля, обследование и обучение персонала.</p>
+
+        <div class="hero-actions reveal">
+          <a class="button button-primary" href="#services">Перечень услуг</a>
+          <a class="button button-secondary" href="#portfolio">Выполненные работы</a>
+        </div>
+
+        <div class="hero-lines reveal">
+          <div><strong>01</strong><span>Обследование</span></div>
+          <div><strong>02</strong><span>Расчёт</span></div>
+          <div><strong>03</strong><span>Ремонт</span></div>
+          <div><strong>04</strong><span>Настройка</span></div>
+        </div>
+      </div>
+
+      <div class="hero-drawing reveal">
+        <div class="drawing-head">
+          <span>СХЕМА ЗЕРНОВОГО ЭЛЕВАТОРА</span>
+          <span>ТЕХНИЧЕСКИЙ ЭСКИЗ</span>
+        </div>
+
+        <svg class="elevator-drawing" viewBox="0 0 760 560" role="img" aria-label="Техническая схема элеватора">
+          <g class="grid-lines">
+            <path d="M0 80H760M0 160H760M0 240H760M0 320H760M0 400H760M0 480H760"/>
+            <path d="M95 0V560M190 0V560M285 0V560M380 0V560M475 0V560M570 0V560M665 0V560"/>
+          </g>
+
+          <g class="structure">
+            <path d="M74 472H696" class="thick"/>
+            <path d="M116 472V228L160 180L204 228V472Z"/>
+            <path d="M238 472V202L284 152L330 202V472Z"/>
+            <path d="M365 472V216L409 168L453 216V472Z"/>
+            <path d="M488 472V236L530 192L572 236V472Z"/>
+            <path d="M610 472V122H670V472Z"/>
+            <path d="M130 180V110H640" class="thick"/>
+            <path d="M638 110V122" class="thick"/>
+            <path d="M80 134H642" class="thin"/>
+            <path d="M80 134L65 160M642 134l16 26"/>
+          </g>
+
+          <g class="equipment">
+            <circle cx="648" cy="96" r="16"/>
+            <path d="M648 80v32M632 96h32M637 85l22 22M659 85l-22 22"/>
+            <rect x="674" y="320" width="42" height="92" rx="4"/>
+            <path d="M670 344H572M674 388H530"/>
+            <path d="M540 388h-64v-52h-58" class="thin"/>
+            <path d="M418 336h-62v-52h-42" class="thin"/>
+          </g>
+
+          <g class="accent-path">
+            <path d="M84 134H638" stroke-dasharray="12 12"/>
+            <path d="M648 112V304" stroke-dasharray="12 12"/>
+            <path d="M674 365H576" stroke-dasharray="12 12"/>
+          </g>
+
+          <g class="labels">
+            <path d="M638 58h82" class="label-line"/>
+            <text x="648" y="48">НОРИЯ</text>
+
+            <path d="M300 92V58h96" class="label-line"/>
+            <text x="308" y="48">ВЕРХНЯЯ ГАЛЕРЕЯ</text>
+
+            <path d="M198 330H62" class="label-line"/>
+            <text x="62" y="318">СИЛОСЫ</text>
+
+            <path d="M684 318h54" class="label-line"/>
+            <text x="640" y="302">АСПИРАЦИЯ</text>
+          </g>
+        </svg>
+
+        <div class="drawing-note">
+          <span>Работаем с существующей инфраструктурой</span>
+          <b>Без лишней замены исправного оборудования</b>
+        </div>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-noise" aria-hidden="true"></div>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="kicker reveal">
-            <span class="pulse-dot"></span>
-            Инженерные решения для зерновых объектов
-          </div>
-          <h1 class="reveal">
-            Ремонтируем.<br>
-            <span>Модернизируем.</span><br>
-            Запускаем.
-          </h1>
-          <p class="hero-lead reveal">Силосы, аспирация, кровля и обучение персонала — от обследования и расчёта до готового решения на объекте.</p>
-          <div class="hero-actions reveal">
-            <a class="button button-primary" href="#services">Наши услуги <span>↓</span></a>
-            <a class="button button-ghost" href="#portfolio">Смотреть объекты</a>
-          </div>
+  <section class="trust-strip">
+    <div class="container trust-row">
+      <span>Силосы</span>
+      <span>Нории</span>
+      <span>Конвейеры</span>
+      <span>Аспирация</span>
+      <span>Кровля</span>
+      <span>Обучение персонала</span>
+    </div>
+  </section>
 
-          <div class="hero-meta reveal">
-            <div><strong>01</strong><span>Обследование</span></div>
-            <div><strong>02</strong><span>Расчёт</span></div>
-            <div><strong>03</strong><span>Ремонт</span></div>
-            <div><strong>04</strong><span>Настройка</span></div>
-          </div>
-        </div>
-
-        <div class="hero-visual reveal" aria-label="Схематичное изображение элеватора">
-          <div class="visual-topline">
-            <span>GRAIN SYSTEM / 2026</span>
-            <span>TECHNICAL SERVICE</span>
-          </div>
-
-          <svg class="elevator-scheme" viewBox="0 0 620 540" role="img" aria-label="Схема силосов и транспортного оборудования">
-            <defs>
-              <linearGradient id="steel" x1="0" x2="1">
-                <stop offset="0" stop-color="#30363a"/>
-                <stop offset=".5" stop-color="#4d555a"/>
-                <stop offset="1" stop-color="#24292c"/>
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="5" result="b"/>
-                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-            </defs>
-            <g class="scheme-grid" opacity=".14">
-              <path d="M0 90H620M0 180H620M0 270H620M0 360H620M0 450H620"/>
-              <path d="M90 0V540M180 0V540M270 0V540M360 0V540M450 0V540M540 0V540"/>
-            </g>
-            <g class="machine">
-              <path d="M95 455V190L135 145L175 190V455Z" fill="url(#steel)" stroke="#6c767b" stroke-width="2"/>
-              <path d="M205 455V150L250 100L295 150V455Z" fill="url(#steel)" stroke="#6c767b" stroke-width="2"/>
-              <path d="M325 455V175L365 128L405 175V455Z" fill="url(#steel)" stroke="#6c767b" stroke-width="2"/>
-              <path d="M435 455V200L475 156L515 200V455Z" fill="url(#steel)" stroke="#6c767b" stroke-width="2"/>
-              <path d="M70 455H548" stroke="#6c767b" stroke-width="4"/>
-              <path d="M134 145L134 82H478V156" fill="none" stroke="#7d888d" stroke-width="8"/>
-              <path d="M86 92H525" stroke="#6c767b" stroke-width="5"/>
-              <circle cx="175" cy="92" r="10" fill="#d8ff44"/>
-              <circle cx="296" cy="92" r="10" fill="#d8ff44"/>
-              <circle cx="413" cy="92" r="10" fill="#d8ff44"/>
-            </g>
-            <g class="flow" fill="none" stroke="#d8ff44" stroke-width="4" stroke-linecap="round" filter="url(#glow)">
-              <path d="M72 92H520" stroke-dasharray="16 18"/>
-              <path d="M135 98V132" stroke-dasharray="10 12"/>
-              <path d="M250 98V90" stroke-dasharray="10 12"/>
-              <path d="M365 98V117" stroke-dasharray="10 12"/>
-            </g>
-          </svg>
-
-          <div class="visual-badge">
-            <span>Комплексный подход</span>
-            <strong>от дефекта до результата</strong>
-          </div>
+  <section class="section light-section" id="services">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div class="section-code">01</div>
+        <div>
+          <p class="section-kicker">УСЛУГИ</p>
+          <h2>Работы на зерновых элеваторах</h2>
+          <p class="section-copy">Каждое направление оформлено как отдельная инженерная задача: сначала причина и состояние узла, затем техническое решение и только после этого ремонт.</p>
         </div>
       </div>
-    </section>
 
-    <section class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>РЕМОНТ СИЛОСОВ</span><i>✦</i>
-        <span>АСПИРАЦИЯ</span><i>✦</i>
-        <span>КРОВЛЯ</span><i>✦</i>
-        <span>ОБУЧЕНИЕ</span><i>✦</i>
-        <span>ОБСЛЕДОВАНИЕ</span><i>✦</i>
-        <span>МОДЕРНИЗАЦИЯ</span><i>✦</i>
-        <span>РЕМОНТ СИЛОСОВ</span><i>✦</i>
-        <span>АСПИРАЦИЯ</span><i>✦</i>
-        <span>КРОВЛЯ</span><i>✦</i>
-        <span>ОБУЧЕНИЕ</span><i>✦</i>
-      </div>
-    </section>
-
-    <section class="section services-section" id="services">
-      <div class="container">
-        <div class="section-intro reveal">
-          <div class="section-tag">01 / УСЛУГИ</div>
-          <div>
-            <h2>Работаем с ключевыми узлами элеватора</h2>
-            <p>Не просто устраняем отдельный дефект — рассматриваем узел как часть технологической системы и предлагаем решение, которое можно обслуживать и эксплуатировать.</p>
+      <div class="services-grid">
+        <article class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <path d="M18 60V27c0-11 8-19 18-19s18 8 18 19v33M13 60h46"/>
+              <path d="M18 30h36M27 8v-4M45 8v-4"/>
+              <path d="M28 43l6-6 5 5 7-8"/>
+              <path d="M42 50l8 8M50 50l-8 8"/>
+            </svg>
           </div>
-        </div>
-
-        <div class="service-grid">
-          <article class="service-card featured reveal">
-            <div class="card-number">01</div>
-            <div class="service-icon" aria-hidden="true">▥</div>
+          <div class="service-content">
+            <span class="service-number">01</span>
             <h3>Ремонт силосов</h3>
-            <p>Дефектовка, восстановление металлоконструкций, герметизация соединений, ремонт загрузочных и разгрузочных элементов.</p>
+            <p>Дефектовка, восстановление элементов корпуса, герметизация соединений, ремонт загрузочных и разгрузочных узлов.</p>
             <ul>
-              <li>обследование корпуса;</li>
-              <li>ремонт металла и креплений;</li>
-              <li>герметизация швов;</li>
-              <li>восстановление защитных покрытий.</li>
+              <li>осмотр корпуса и креплений;</li>
+              <li>ремонт металлоконструкций;</li>
+              <li>герметизация стыков и швов;</li>
+              <li>восстановление защитного покрытия.</li>
             </ul>
-          </article>
+          </div>
+        </article>
 
-          <article class="service-card featured reveal">
-            <div class="card-number">02</div>
-            <div class="service-icon" aria-hidden="true">≈</div>
+        <article class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <path d="M10 17h20v16h14v22h18"/>
+              <path d="M10 25h12M44 43h10"/>
+              <circle cx="57" cy="55" r="9"/>
+              <path d="M57 46v18M48 55h18M51 49l12 12M63 49 51 61"/>
+              <path d="M14 50h18M14 56h24"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <span class="service-number">02</span>
             <h3>Расчёт и модернизация аспирации</h3>
-            <p>Пересчёт сети, подбор расходов воздуха, изменение трассировки, укрытий и точек отсоса.</p>
+            <p>Аэродинамический расчёт, подбор расходов воздуха, корректировка воздуховодов, укрытий и точек отсоса.</p>
             <ul>
-              <li>аэродинамический расчёт;</li>
-              <li>подбор вентиляторов;</li>
-              <li>оптимизация воздуховодов;</li>
-              <li>проектные рекомендации.</li>
+              <li>расчёт сопротивления сети;</li>
+              <li>подбор вентилятора;</li>
+              <li>изменение сечений и трассы;</li>
+              <li>модернизация укрытий.</li>
             </ul>
-          </article>
+          </div>
+        </article>
 
-          <article class="service-card reveal">
-            <div class="card-number">03</div>
-            <div class="service-icon" aria-hidden="true">↺</div>
+        <article class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <circle cx="36" cy="36" r="24"/>
+              <circle cx="36" cy="36" r="5"/>
+              <path d="M36 12c8 6 10 13 6 21M60 36c-6 8-13 10-21 6M36 60c-8-6-10-13-6-21M12 36c6-8 13-10 21-6"/>
+              <path d="M58 14l6-6M61 20l7-1"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <span class="service-number">03</span>
             <h3>Обслуживание аспирации</h3>
-            <p>Проверка разрежения и расходов, поиск подсосов, балансировка, контроль циклонов, фильтров и вентиляторов.</p>
-          </article>
+            <p>Измерение параметров сети, поиск подсосов, балансировка ветвей, проверка вентиляторов, циклонов и фильтров.</p>
+          </div>
+        </article>
 
-          <article class="service-card reveal">
-            <div class="card-number">04</div>
-            <div class="service-icon" aria-hidden="true">⌂</div>
+        <article class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <path d="M8 42 36 15l28 27"/>
+              <path d="M16 39v20h40V39"/>
+              <path d="M13 35h46"/>
+              <path d="M46 23v-9h8v17"/>
+              <path d="M25 48h22"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <span class="service-number">04</span>
             <h3>Ремонт кровли</h3>
-            <p>Поиск протечек, восстановление покрытия, герметизация примыканий и проходок, локальный ремонт конструкций.</p>
-          </article>
+            <p>Поиск протечек, ремонт покрытия, примыканий и проходок, восстановление герметичности на башнях и галереях.</p>
+          </div>
+        </article>
 
-          <article class="service-card reveal">
-            <div class="card-number">05</div>
-            <div class="service-icon" aria-hidden="true">◎</div>
+        <article class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <rect x="15" y="11" width="34" height="48" rx="3"/>
+              <path d="M25 11V7h14v4M23 25h18M23 34h13M23 43h10"/>
+              <circle cx="51" cy="49" r="10"/>
+              <path d="M58 56l7 7"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <span class="service-number">05</span>
             <h3>Техническое обследование</h3>
-            <p>Фиксация дефектов, определение причин, приоритизация работ и подготовка перечня ремонтных мероприятий.</p>
-          </article>
+            <p>Осмотр оборудования и конструкций, фиксация дефектов, определение причин и подготовка перечня ремонтных мероприятий.</p>
+          </div>
+        </article>
 
-          <article class="service-card reveal">
-            <div class="card-number">06</div>
-            <div class="service-icon" aria-hidden="true">↗</div>
+        <article class="service-card reveal">
+          <div class="service-icon">
+            <svg viewBox="0 0 72 72" aria-hidden="true">
+              <path d="M11 50h50M18 50V32h13v18M40 50V22h13v28"/>
+              <path d="M11 30c9 0 15-3 20-9 6 7 13 10 28 10"/>
+              <path d="M53 24l7 7-7 7"/>
+            </svg>
+          </div>
+          <div class="service-content">
+            <span class="service-number">06</span>
             <h3>Модернизация узлов</h3>
-            <p>Доработка существующих решений без избыточной замены оборудования — с учётом реальной эксплуатации объекта.</p>
-          </article>
+            <p>Доработка существующей схемы, чтобы повысить стабильность работы без полной замены исправного оборудования.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section aspiration-section" id="aspiration">
+    <div class="container aspiration-grid">
+      <div class="aspiration-copy reveal">
+        <div class="section-code section-code-dark">02</div>
+        <p class="section-kicker dark">АСПИРАЦИЯ</p>
+        <h2>Система должна работать как единая сеть</h2>
+        <p>Недостаточно поставить мощный вентилятор. Эффективность зависит от укрытия источника пыли, сечений воздуховодов, сопротивления сети, пылеуловителя и балансировки всех ветвей.</p>
+        <div class="aspiration-points">
+          <div><span>01</span><p>Замер и проверка существующей системы</p></div>
+          <div><span>02</span><p>Расчёт расходов и сопротивлений</p></div>
+          <div><span>03</span><p>Изменение сети и точек отсоса</p></div>
+          <div><span>04</span><p>Балансировка после монтажа</p></div>
         </div>
       </div>
-    </section>
 
-    <section class="training-section" id="training">
-      <div class="container training-grid">
-        <div class="training-copy reveal">
-          <div class="section-tag section-tag-dark">02 / ОБУЧЕНИЕ</div>
-          <h2>Обучаем персонал понимать систему, а не просто включать оборудование</h2>
-          <p>После ремонта важно сохранить результат. Поэтому обучение строится вокруг реальной эксплуатации элеватора: что контролировать, какие признаки неисправности видеть заранее и когда вмешиваться.</p>
-          <a class="text-link" href="#contacts">Запросить программу обучения <span>↗</span></a>
+      <div class="aspiration-diagram reveal">
+        <div class="diagram-title">Принципиальная схема аспирации</div>
+        <svg viewBox="0 0 760 430" role="img" aria-label="Схема аспирации">
+          <g class="diagram-box">
+            <rect x="40" y="250" width="138" height="92" rx="8"/>
+            <path d="M65 250v-30h88v30"/>
+            <text x="65" y="376">УКРЫТИЕ</text>
+          </g>
+
+          <g class="diagram-duct">
+            <path d="M178 276h118v-98h110"/>
+            <path d="M406 178h68"/>
+          </g>
+
+          <g class="diagram-box">
+            <path d="M474 108h106l-14 196h-78Z"/>
+            <path d="M486 148h82M482 188h88M478 228h94"/>
+            <text x="486" y="340">ЦИКЛОН / ФИЛЬТР</text>
+          </g>
+
+          <g class="diagram-duct">
+            <path d="M580 176h54"/>
+          </g>
+
+          <g class="fan-symbol">
+            <circle cx="670" cy="176" r="36"/>
+            <circle cx="670" cy="176" r="5"/>
+            <path d="M670 140c11 8 14 19 8 31M706 176c-8 11-19 14-31 8M670 212c-11-8-14-19-8-31M634 176c8-11 19-14 31-8"/>
+            <text x="636" y="246">ВЕНТИЛЯТОР</text>
+          </g>
+
+          <g class="airflow">
+            <path d="M194 276h90" stroke-dasharray="10 10"/>
+            <path d="M296 265v-76" stroke-dasharray="10 10"/>
+            <path d="M310 178h84" stroke-dasharray="10 10"/>
+            <path d="M590 176h36" stroke-dasharray="10 10"/>
+          </g>
+
+          <g class="diagram-labels">
+            <text x="205" y="262">ВОЗДУХ + ПЫЛЬ</text>
+            <text x="622" y="130">РАЗРЕЖЕНИЕ</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light-section training-section" id="training">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div class="section-code">03</div>
+        <div>
+          <p class="section-kicker">ОБУЧЕНИЕ ПЕРСОНАЛА</p>
+          <h2>Эксплуатация без «работаем, пока не сломается»</h2>
+          <p class="section-copy">Обучение привязано к оборудованию элеватора и ежедневным действиям сотрудников: что смотреть, что измерять, какие изменения считать тревожными.</p>
+        </div>
+      </div>
+
+      <div class="training-layout">
+        <div class="training-visual reveal">
+          <svg viewBox="0 0 560 420" aria-hidden="true">
+            <path d="M166 242c0-70 52-128 118-128s118 58 118 128" class="helmet-main"/>
+            <path d="M138 242h292v46H138z" class="helmet-main"/>
+            <path d="M214 114V74h140v40M284 74V40" class="helmet-line"/>
+            <path d="M206 312h154M226 342h114" class="helmet-line"/>
+            <rect x="58" y="60" width="126" height="142" rx="8" class="sheet"/>
+            <path d="M84 94h72M84 122h50M84 150h64M84 178h42" class="sheet-line"/>
+            <path d="M72 94l7 7 12-15M72 122l7 7 12-15M72 150l7 7 12-15" class="check"/>
+          </svg>
+          <div class="training-caption">Практическое обучение на базе реального оборудования объекта</div>
         </div>
 
         <div class="training-list">
           <article class="training-item reveal">
-            <div class="training-index">01</div>
+            <span>01</span>
             <div>
-              <h3>Аспирация на практике</h3>
-              <p>Расход воздуха, разрежение, сопротивление сети, подсосы, балансировка и типовые ошибки эксплуатации.</p>
+              <h3>Аспирация и воздушный баланс</h3>
+              <p>Разрежение, расход воздуха, сопротивление сети, подсосы и признаки разбалансировки.</p>
             </div>
           </article>
           <article class="training-item reveal">
-            <div class="training-index">02</div>
+            <span>02</span>
             <div>
-              <h3>Оборудование элеватора</h3>
-              <p>Нории, конвейеры, вентиляторы, циклоны и укрытия: назначение узлов и признаки отклонений.</p>
+              <h3>Нории, конвейеры, вентиляторы</h3>
+              <p>Что контролировать в процессе эксплуатации и какие симптомы требуют остановки или осмотра.</p>
             </div>
           </article>
           <article class="training-item reveal">
-            <div class="training-index">03</div>
+            <span>03</span>
             <div>
               <h3>Промышленная безопасность</h3>
-              <p>Пылевзрывоопасность, опасные зоны, порядок осмотров и безопасная организация ремонтных работ.</p>
+              <p>Пыль, вращающиеся механизмы, работы на высоте и организация безопасного ремонта.</p>
             </div>
           </article>
           <article class="training-item reveal">
-            <div class="training-index">04</div>
-            <div>
-              <h3>Регламент контроля</h3>
-              <p>Что проверять ежедневно, еженедельно и перед сезоном, чтобы не доводить оборудование до аварийного ремонта.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section portfolio-section" id="portfolio">
-      <div class="container">
-        <div class="section-intro reveal">
-          <div class="section-tag">03 / ПОРТФОЛИО</div>
-          <div>
-            <h2>Объекты и выполненные работы</h2>
-            <p>Ниже — структура портфолио без вымышленных заказчиков. Реальные названия предприятий и фотографии можно подставить по мере наполнения проекта.</p>
-          </div>
-        </div>
-
-        <div class="portfolio-list">
-          <article class="project-card reveal">
-            <div class="project-visual project-visual-one">
-              <div class="project-label">ОБЪЕКТ 01</div>
-              <div class="mini-silos"><i></i><i></i><i></i></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta">Автоприём · Аспирация</div>
-              <h3>Участок автомобильной приёмки зерна</h3>
-              <p>Проведено обследование существующей сети, перерасчёт расходов воздуха и оптимизация точек отсоса.</p>
-              <div class="project-work">
-                <span>Обследование сети</span>
-                <span>Расчёт расходов</span>
-                <span>Новые укрытия</span>
-                <span>Балансировка</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-visual project-visual-two">
-              <div class="project-label">ОБЪЕКТ 02</div>
-              <div class="ring-silo"></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta">Силосный корпус · Ремонт</div>
-              <h3>Силосный корпус хранения зерна</h3>
-              <p>Выполнена дефектовка конструкций, локальный ремонт металла и восстановление герметичности соединений.</p>
-              <div class="project-work">
-                <span>Дефектовка</span>
-                <span>Ремонт металла</span>
-                <span>Герметизация</span>
-                <span>Покрытие</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-visual project-visual-three">
-              <div class="project-label">ОБЪЕКТ 03</div>
-              <div class="tower-shape"></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta">Норийная башня · Кровля</div>
-              <h3>Норийная башня и верхняя галерея</h3>
-              <p>Определены источники протечек, восстановлены примыкания и проходки, выполнен локальный ремонт покрытия.</p>
-              <div class="project-work">
-                <span>Поиск протечек</span>
-                <span>Примыкания</span>
-                <span>Проходки</span>
-                <span>Водоотвод</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section process-section" id="process">
-      <div class="container">
-        <div class="section-intro reveal">
-          <div class="section-tag">04 / ЭТАПЫ</div>
-          <div>
-            <h2>Понятная схема работы</h2>
-            <p>Без лишней бюрократии: сначала определяем реальную проблему, затем выбираем технически обоснованный объём работ.</p>
-          </div>
-        </div>
-
-        <div class="process-grid">
-          <article class="process-step reveal">
-            <span>01</span>
-            <h3>Исходные данные</h3>
-            <p>Описание проблемы, фотографии, видео, схемы и параметры оборудования.</p>
-          </article>
-          <article class="process-step reveal">
-            <span>02</span>
-            <h3>Обследование</h3>
-            <p>Осмотр объекта, измерения, фиксация дефектов и причин их появления.</p>
-          </article>
-          <article class="process-step reveal">
-            <span>03</span>
-            <h3>Решение</h3>
-            <p>Расчёт, перечень работ, материалы и рекомендации по модернизации.</p>
-          </article>
-          <article class="process-step reveal">
             <span>04</span>
-            <h3>Реализация</h3>
-            <p>Ремонт, настройка, контроль результата и рекомендации по дальнейшей эксплуатации.</p>
+            <div>
+              <h3>Регламент осмотров</h3>
+              <p>Ежедневные, еженедельные и сезонные проверки оборудования и конструкций.</p>
+            </div>
           </article>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="contacts-section" id="contacts">
-      <div class="container">
-        <div class="contact-panel reveal">
-          <div class="contact-copy">
-            <div class="section-tag section-tag-dark">05 / КОНТАКТЫ</div>
-            <h2>Есть проблема<br>на объекте?</h2>
-            <p>Отправьте краткое описание, фото или видео. Подготовим следующий шаг: обследование, расчёт или перечень ремонтных работ.</p>
-          </div>
-
-          <div class="contact-links">
-            <a id="whatsappLink" href="#" target="_blank" rel="noopener noreferrer">
-              <span>WhatsApp</span><b>Написать сообщение</b><i>↗</i>
-            </a>
-            <a id="telegramLink" href="#" target="_blank" rel="noopener noreferrer">
-              <span>Telegram</span><b>Отправить описание</b><i>↗</i>
-            </a>
-            <a id="emailLink" href="#">
-              <span>E-mail</span><b>Отправить письмо</b><i>↗</i>
-            </a>
-          </div>
+  <section class="section portfolio-section" id="portfolio">
+    <div class="container">
+      <div class="section-heading dark-heading reveal">
+        <div class="section-code section-code-dark">04</div>
+        <div>
+          <p class="section-kicker dark">ПОРТФОЛИО</p>
+          <h2>Объекты и проведённые работы</h2>
+          <p class="section-copy dark-copy">Структура готова под реальные названия предприятий и фотографии. Пока не подставляю вымышленных заказчиков.</p>
         </div>
       </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="brand footer-brand">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 48 48"><path d="M8 39V17l7-8 7 8v22M26 39V13l7-6 7 6v26M5 39h38" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span>Проект Элеватор</span>
+      <div class="projects">
+        <article class="project reveal">
+          <div class="project-index">01</div>
+          <div class="project-name">
+            <span>Объект</span>
+            <h3>Автомобильная приёмка зерна</h3>
+          </div>
+          <div class="project-work">
+            <span>Проведённые работы</span>
+            <ul>
+              <li>обследование существующей аспирационной сети;</li>
+              <li>перерасчёт расходов воздуха;</li>
+              <li>корректировка точек отсоса и воздуховодов;</li>
+              <li>балансировка системы.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-index">02</div>
+          <div class="project-name">
+            <span>Объект</span>
+            <h3>Силосный корпус хранения зерна</h3>
+          </div>
+          <div class="project-work">
+            <span>Проведённые работы</span>
+            <ul>
+              <li>дефектовка металлоконструкций;</li>
+              <li>локальный ремонт элементов корпуса;</li>
+              <li>герметизация стыков и соединений;</li>
+              <li>восстановление защитного покрытия.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-index">03</div>
+          <div class="project-name">
+            <span>Объект</span>
+            <h3>Норийная башня и верхняя галерея</h3>
+          </div>
+          <div class="project-work">
+            <span>Проведённые работы</span>
+            <ul>
+              <li>поиск источников протечек;</li>
+              <li>ремонт примыканий и проходок;</li>
+              <li>восстановление кровельного покрытия;</li>
+              <li>проверка водоотвода.</li>
+            </ul>
+          </div>
+        </article>
       </div>
-      <p>Ремонт · Аспирация · Кровля · Обучение</p>
-      <span>© <span id="year"></span></span>
     </div>
-  </footer>
+  </section>
+
+  <section class="contacts-section" id="contacts">
+    <div class="container contact-grid">
+      <div class="contact-copy reveal">
+        <p class="section-kicker dark">КОНТАКТЫ</p>
+        <h2>Обсудить проблему на объекте</h2>
+        <p>Отправьте краткое описание, фото или видео. По исходным данным можно определить, что потребуется дальше: обследование, расчёт или ремонт.</p>
+      </div>
+
+      <div class="contact-actions reveal">
+        <a id="whatsappLink" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="contact-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M24 7a16 16 0 0 0-14 24L7 41l10-3A16 16 0 1 0 24 7Z"/>
+              <path d="M18 17c1-1 2-1 3 1l2 4c0 1-1 2-2 3 2 4 5 6 9 8 1-1 2-3 3-3l4 2c2 1 1 3 0 5-2 3-6 4-11 1-7-3-12-8-15-15-2-4 0-8 2-10 2-2 4-1 5 4Z"/>
+            </svg>
+          </div>
+          <div><span>WhatsApp</span><b>Открыть чат</b></div>
+          <i>↗</i>
+        </a>
+
+        <a id="telegramLink" href="#" target="_blank" rel="noopener noreferrer">
+          <div class="contact-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="m7 23 34-13-7 29-11-8-7 7-1-11Z"/>
+              <path d="m15 27 19-11-11 15"/>
+            </svg>
+          </div>
+          <div><span>Telegram</span><b>Отправить сообщение</b></div>
+          <i>↗</i>
+        </a>
+
+        <a id="emailLink" href="#">
+          <div class="contact-icon">
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect x="6" y="10" width="36" height="28" rx="3"/>
+              <path d="m8 14 16 13 16-13"/>
+            </svg>
+          </div>
+          <div><span>E-mail</span><b>Написать письмо</b></div>
+          <i>↗</i>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="brand footer-brand">
+      <svg class="brand-icon" viewBox="0 0 52 52" aria-hidden="true">
+        <path d="M8 44V21l9-9 9 9v23M29 44V16l7-7 7 7v28M5 44h42" />
+      </svg>
+      <span><b>Проект</b> Элеватор</span>
+    </div>
+    <span>Ремонт · Аспирация · Кровля · Обучение</span>
+    <span>© <span id="year"></span></span>
+  </div>
+</footer>
 </body>
 </html>
