@@ -1,10 +1,8 @@
 {
-  "name": "larissa-vladislav-wedding",
-  "version": "2.0.0",
+  "name": "project-elevator",
+  "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.49.1",
-    "nanoid": "^5.0.9"
+  "scripts": {
+    "build": "rm -rf dist && mkdir -p dist && cp -R public/. dist/"
   }
 }
