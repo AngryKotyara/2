@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b0d0e">
+  <meta name="description" content="Проект Элеватор — ремонт и модернизация элеваторов, силосов, аспирации и кровли. Обучение персонала.">
+  <title>Проект Элеватор — ремонт и модернизация элеваторов</title>
+  <style>:root{--bg:#0b0d0e;--surface:#14181a;--text:#f2f0e8;--muted:#9ba1a3;--line:rgba(255,255,255,.12);--accent:#d9ff3f;--paper:#ebe8df;--dark:#101315;--max:1240px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 80% 8%,rgba(217,255,63,.08),transparent 24%),linear-gradient(#0b0d0e,#0e1113);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(#000,transparent 75%);z-index:-1}a{text-decoration:none;color:inherit}button{font:inherit}.wrap{width:min(calc(100% - 40px),var(--max));margin:auto}.header{position:fixed;inset:0 0 auto;z-index:20;padding:14px 0;transition:.25s}.header.scrolled{background:rgba(11,13,14,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;justify-content:space-between;gap:24px}.logo{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.03em}.logo i{width:38px;height:38px;border-radius:11px;border:1px solid rgba(217,255,63,.5);background:linear-gradient(135deg,transparent 46%,var(--accent) 47% 53%,transparent 54%),linear-gradient(45deg,transparent 46%,var(--accent) 47% 53%,transparent 54%);box-shadow:inset 0 0 24px rgba(217,255,63,.06)}nav{display:flex;gap:28px;font-size:14px;color:#c6cbcd}nav a{transition:.2s}nav a:hover{color:var(--accent)}.top-cta,.btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:14px;font-weight:800;transition:.2s}.top-cta{min-height:44px;padding:0 18px;border-radius:999px;background:var(--accent);color:#0a0c0d;border-color:var(--accent);font-size:14px}.top-cta:hover,.primary:hover{transform:translateY(-2px);background:#e7ff77}.menu{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:white}.hero{min-height:100svh;padding:128px 0 74px;display:flex;align-items:center}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:64px;align-items:end}.eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}.eyebrow:before{content:"";width:28px;height:2px;background:var(--accent);border-radius:9px}.hero h1{font-size:clamp(58px,8.3vw,126px);line-height:.88;letter-spacing:-.075em;margin:18px 0 28px}.hero h1 b{color:var(--accent);font-weight:850}.lead{max-width:680px;font-size:clamp(18px,2.2vw,24px);color:#b9bec0;letter-spacing:-.02em;margin:0 0 32px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{min-height:54px;padding:0 22px;background:rgba(255,255,255,.035)}.btn:hover{border-color:rgba(217,255,63,.45);color:var(--accent)}.primary{background:var(--accent);color:#090b0c;border-color:var(--accent)}.primary:hover{color:#090b0c}.hero-art{min-height:430px;border:1px solid var(--line);border-radius:30px;position:relative;overflow:hidden;background:radial-gradient(circle at 80% 20%,rgba(217,255,63,.16),transparent 30%),linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.02));box-shadow:0 28px 70px rgba(0,0,0,.25)}.hero-art:before{content:"";position:absolute;inset:9%;border:1px solid rgba(255,255,255,.1);border-radius:50%;transform:scaleX(.62)}.hero-art small{position:absolute;top:24px;left:24px;color:#bcc1c2;letter-spacing:.15em}.hero-art>strong{position:absolute;right:22px;bottom:22px;background:var(--accent);color:#0a0c0d;padding:12px 14px;border-radius:12px;font-size:13px;transform:rotate(-3deg)}.silos{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:12px;padding-bottom:55px}.silos i{width:25%;height:58%;border:1px solid rgba(255,255,255,.24);border-radius:44% 44% 8px 8px/12% 12% 8px 8px;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.13),rgba(255,255,255,.03));position:relative}.silos i:nth-child(2){height:72%}.silos i:nth-child(3){height:64%}.silos i:after{content:"";position:absolute;left:50%;bottom:-30px;width:1px;height:30px;background:rgba(255,255,255,.22)}.ticker{overflow:hidden;border-block:1px solid var(--line);background:#0d1011}.ticker div{white-space:nowrap;width:max-content;padding:14px 0;color:#9aa0a3;text-transform:uppercase;letter-spacing:.16em;font-size:13px;animation:tick 24s linear infinite}@keyframes tick{to{transform:translateX(-50%)}}section{padding:110px 0}.section-head{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;margin-bottom:54px;align-items:start}.section-head h2,.training h2,.contact-box h2{margin:0;font-size:clamp(40px,6vw,76px);line-height:.98;letter-spacing:-.055em}.section-head p{max-width:580px;margin:12px 0 0;color:var(--muted);font-size:18px}.services{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}.card{grid-column:span 2;min-height:300px;border:1px solid var(--line);border-radius:22px;padding:28px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));position:relative;transition:.25s}.card.wide{grid-column:span 3}.card:hover{transform:translateY(-6px);border-color:rgba(217,255,63,.38);background:linear-gradient(145deg,rgba(217,255,63,.07),rgba(255,255,255,.018))}.card em,.project em,.process em{font-style:normal;font-size:11px;letter-spacing:.15em;color:var(--accent);font-weight:900}.ico{position:absolute;top:22px;right:22px;width:66px;height:66px;border:1px solid var(--line);border-radius:17px;display:grid;place-items:center;color:var(--accent);font-size:28px}.card h3{margin:66px 0 14px;font-size:clamp(28px,3vw,42px);line-height:1.04;letter-spacing:-.045em}.card p{color:#9fa5a7;margin:0}.training{background:var(--paper);color:#121517;position:relative;overflow:hidden}.training:after{content:"TRAINING";position:absolute;right:-2vw;bottom:-5vw;font-weight:900;font-size:min(18vw,250px);letter-spacing:-.08em;color:rgba(18,21,23,.045)}.training-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:74px;align-items:center}.training h2{font-size:clamp(44px,6.5vw,86px);margin:18px 0 28px}.training p{color:#555b5d;font-size:18px}.dark{color:#5a6063}.lessons{display:grid;gap:12px;position:relative;z-index:2}.lesson{display:grid;grid-template-columns:50px 1fr;gap:16px;align-items:center;padding:18px;border:1px solid rgba(18,21,23,.1);border-radius:16px;background:rgba(255,255,255,.55)}.lesson>b{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;background:#15191b;color:var(--accent)}.lesson strong,.lesson small{display:block}.lesson small{color:#686e70;margin-top:3px}.projects{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.project{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#14181a;transition:.25s}.project:hover{transform:translateY(-6px);border-color:rgba(217,255,63,.36)}.visual{min-height:220px;position:relative;background:linear-gradient(140deg,rgba(217,255,63,.14),transparent 35%),repeating-linear-gradient(90deg,transparent 0 29px,rgba(255,255,255,.04) 30px),#111416;overflow:hidden}.visual:before{content:"";position:absolute;border:1px solid rgba(255,255,255,.25);background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.1),rgba(255,255,255,.02))}.silo-v:before{width:46%;height:72%;left:27%;bottom:0;border-radius:45% 45% 6px 6px/12% 12% 6px 6px}.roof-v:before{width:78%;height:48%;left:11%;bottom:20%;border-radius:8px;transform:skewY(-5deg)}.tower-v:before{width:22%;height:84%;left:39%;bottom:0;border-radius:6px}.project-body{padding:24px}.project h3{font-size:28px;line-height:1.08;letter-spacing:-.04em;margin:10px 0 16px}.project ul{padding-left:18px;color:#aab0b2;font-size:14px;margin:0}.project li+li{margin-top:7px}.compact{margin-bottom:34px}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden}.process article{padding:28px;background:#101315;min-height:260px}.process h3{font-size:24px;margin:76px 0 12px;letter-spacing:-.035em}.process p{margin:0;color:var(--muted);font-size:14px}.contacts{padding-top:40px;padding-bottom:70px}.contact-box{padding:clamp(28px,5vw,62px);border-radius:32px;background:var(--accent);color:#0b0d0e;display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:end}.contact-box h2{font-size:clamp(44px,6.8vw,92px);line-height:.9}.contact-box p{color:rgba(11,13,14,.7);font-size:17px;max-width:620px}.contact-actions{display:grid;gap:10px}.contact-actions button{min-height:58px;border:0;border-radius:15px;background:#101315;color:#fff;padding:0 18px;display:flex;align-items:center;justify-content:space-between;font-weight:800;cursor:pointer;transition:.2s}.contact-actions button:hover{transform:translateX(5px);background:#1a1f21}.contact-actions button span{color:var(--accent);font-size:20px}.contact-actions small{color:rgba(11,13,14,.55);margin-top:4px}footer{border-top:1px solid var(--line);padding:28px 0 36px;color:#7e8588;font-size:13px}.foot{display:flex;justify-content:space-between;gap:20px}.foot strong{color:#d7dbdc}.foot i{font-style:normal}.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}.reveal.visible{opacity:1;transform:none}.toast{position:fixed;right:20px;bottom:20px;z-index:50;max-width:min(420px,calc(100vw - 40px));padding:14px 16px;border:1px solid rgba(217,255,63,.28);border-radius:14px;background:#202527;color:#fff;box-shadow:0 18px 60px rgba(0,0,0,.4);opacity:0;transform:translateY(14px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:none}
+@media(max-width:980px){nav,.top-cta{display:none}.menu{display:block}nav.open{display:flex;position:absolute;top:64px;left:20px;right:20px;flex-direction:column;gap:4px;padding:12px;background:rgba(15,18,20,.97);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:18px}nav.open a{padding:13px 14px}.hero-grid,.section-head,.training-grid,.contact-box{grid-template-columns:1fr}.hero-art{min-height:360px}.card,.card.wide{grid-column:span 3}.projects{grid-template-columns:1fr}.process{grid-template-columns:repeat(2,1fr)}}@media(max-width:640px){.wrap{width:min(calc(100% - 26px),var(--max))}.header{padding:10px 0}.logo{font-size:15px}.logo i{width:34px;height:34px}.hero{padding:104px 0 68px;min-height:auto}.hero h1{font-size:clamp(54px,18vw,86px)}.lead{font-size:18px}.actions{display:grid}.btn{width:100%}.hero-art{min-height:300px;border-radius:22px}section{padding:78px 0}.section-head{margin-bottom:34px}.services{gap:12px}.card,.card.wide{grid-column:1/-1;min-height:270px;padding:22px}.training-grid{gap:36px}.lesson{grid-template-columns:44px 1fr;padding:14px}.lesson>b{width:44px;height:44px}.process{grid-template-columns:1fr}.process article{min-height:220px}.process h3{margin-top:52px}.contact-box{border-radius:22px;gap:32px}.foot{flex-direction:column}.ticker div{animation-duration:18s}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}</style>
+  <script defer>const CONTACTS={
+  whatsapp:"",
+  telegram:"",
+  email:""
+};
+
+const header=document.getElementById("header");
+const nav=document.getElementById("nav");
+const menu=document.getElementById("menu");
+const toast=document.getElementById("toast");
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+const syncHeader=()=>header.classList.toggle("scrolled",window.scrollY>16);
+syncHeader();
+window.addEventListener("scroll",syncHeader,{passive:true});
+
+menu.addEventListener("click",()=>{
+  nav.classList.toggle("open");
+  menu.textContent=nav.classList.contains("open")?"×":"☰";
+});
+
+nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+  nav.classList.remove("open");
+  menu.textContent="☰";
+}));
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll(".reveal").forEach((el,i)=>{
+  el.style.transitionDelay=`${Math.min((i%4)*70,210)}ms`;
+  observer.observe(el);
+});
+
+function showToast(message){
+  toast.textContent=message;
+  toast.classList.add("show");
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>toast.classList.remove("show"),3200);
+}
+
+document.querySelectorAll("[data-contact]").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const url=CONTACTS[btn.dataset.contact];
+    if(url){
+      window.open(url,"_blank","noopener,noreferrer");
+      return;
+    }
+    showToast("Канал связи подготовлен. Осталось добавить реальный номер, Telegram и e-mail в конфигурацию сайта.");
+  });
+});</script>
+  <!-- production: project-elevator -->
+</head>
+<body>
+<header class="header" id="header">
+  <div class="wrap nav">
+    <a class="logo" href="#top"><i></i><span>Проект Элеватор</span></a>
+    <nav id="nav">
+      <a href="#services">Услуги</a><a href="#training">Обучение</a><a href="#portfolio">Портфолио</a><a href="#process">Как работаем</a><a href="#contacts">Контакты</a>
+    </nav>
+    <a class="top-cta" href="#contacts">Обсудить объект</a>
+    <button class="menu" id="menu" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow reveal">Инженерные работы на зерновых объектах</span>
+        <h1 class="reveal">Проект<br><b>Элеватор</b></h1>
+        <p class="lead reveal">Ремонт, обследование и модернизация зерновых элеваторов: силосы, аспирация, кровля и обучение персонала.</p>
+        <div class="actions reveal"><a class="btn primary" href="#services">Смотреть услуги ↘</a><a class="btn" href="#portfolio">Наши работы</a></div>
+      </div>
+      <div class="hero-art reveal" aria-hidden="true">
+        <small>GRAIN INFRASTRUCTURE / 01</small>
+        <div class="silos"><i></i><i></i><i></i></div>
+        <strong>Работаем по объекту</strong>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker"><div>Ремонт силосов • Аспирация • Кровля • Обучение персонала • Обследование • Модернизация • Ремонт силосов • Аспирация • Кровля • Обучение персонала •</div></div>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Услуги</span><div><h2>От дефекта до рабочего решения</h2><p>Обследуем проблемный узел, формируем техническое решение, выполняем ремонт и модернизацию с привязкой к реальным условиям объекта.</p></div></div>
+      <div class="services">
+        <article class="card wide reveal"><em>01 / SILOS</em><span class="ico">◫</span><h3>Ремонт силосов</h3><p>Диагностика повреждений, восстановление металлоконструкций, герметизация стыков и швов, ремонт элементов загрузки и выгрузки.</p></article>
+        <article class="card wide reveal"><em>02 / ASPIRATION</em><span class="ico">≈</span><h3>Расчёт и модернизация аспирации</h3><p>Обследование сети, расчёт расходов воздуха, подбор оборудования, переработка воздуховодов, укрытий и точек отсоса.</p></article>
+        <article class="card reveal"><em>03 / SERVICE</em><span class="ico">⌁</span><h3>Обслуживание аспирации</h3><p>Проверка разрежения, балансировка сети, поиск подсосов, контроль вентиляторов, циклонов и фильтров.</p></article>
+        <article class="card reveal"><em>04 / ROOF</em><span class="ico">⌂</span><h3>Ремонт кровли</h3><p>Устранение протечек, ремонт примыканий и проходок, восстановление покрытия и локальный ремонт конструкций.</p></article>
+        <article class="card reveal"><em>05 / AUDIT</em><span class="ico">◎</span><h3>Техническое обследование</h3><p>Фиксация дефектов, определение причин, приоритизация и перечень работ для ремонта или модернизации.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="training" id="training">
+    <div class="wrap training-grid">
+      <div class="reveal"><span class="eyebrow dark">Обучение персонала</span><h2>Чтобы система работала не только после ремонта</h2><p>Прикладное обучение для сотрудников элеватора: эксплуатация аспирации, контроль оборудования, признаки неисправностей и безопасная организация работ.</p></div>
+      <div class="lessons">
+        <div class="lesson reveal"><b>01</b><span><strong>Аспирация на практике</strong><small>Разрежение, расход воздуха, балансировка, типовые ошибки.</small></span></div>
+        <div class="lesson reveal"><b>02</b><span><strong>Эксплуатация оборудования</strong><small>Нории, конвейеры, вентиляторы, циклоны и точки пылеудаления.</small></span></div>
+        <div class="lesson reveal"><b>03</b><span><strong>Промышленная безопасность</strong><small>Риски зернового производства и профилактика опасных ситуаций.</small></span></div>
+        <div class="lesson reveal"><b>04</b><span><strong>Регламент осмотров</strong><small>Ежедневный, еженедельный и сезонный контроль оборудования.</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">Портфолио</span><div><h2>Объекты и проведённые работы</h2><p>Карточки подготовлены под реальные названия предприятий и фото. Сейчас указаны типовые объекты без вымышленных заказчиков.</p></div></div>
+      <div class="projects">
+        <article class="project reveal"><div class="visual silo-v"></div><div class="project-body"><em>Объект 01 · Автоприём</em><h3>Аспирация участка приёмки зерна</h3><ul><li>обследование существующей сети;</li><li>перерасчёт расходов воздуха;</li><li>изменение точек отсоса и воздуховодов;</li><li>балансировка системы.</li></ul></div></article>
+        <article class="project reveal"><div class="visual roof-v"></div><div class="project-body"><em>Объект 02 · Силосный корпус</em><h3>Ремонт и герметизация силосов</h3><ul><li>дефектовка конструкций;</li><li>герметизация стыков и швов;</li><li>локальный ремонт металла;</li><li>восстановление защитного покрытия.</li></ul></div></article>
+        <article class="project reveal"><div class="visual tower-v"></div><div class="project-body"><em>Объект 03 · Норийная башня</em><h3>Кровля и примыкания</h3><ul><li>поиск источников протечек;</li><li>ремонт примыканий и проходок;</li><li>восстановление покрытия;</li><li>контроль водоотвода.</li></ul></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head compact reveal"><span class="eyebrow">Процесс</span><div><h2>Понятная схема работы</h2></div></div>
+      <div class="process reveal">
+        <article><em>01</em><h3>Заявка</h3><p>Получаем описание проблемы, фото, видео и исходные данные.</p></article>
+        <article><em>02</em><h3>Обследование</h3><p>Выезжаем на объект и фиксируем состояние оборудования.</p></article>
+        <article><em>03</em><h3>Решение</h3><p>Формируем объём работ и технические рекомендации.</p></article>
+        <article><em>04</em><h3>Работы</h3><p>Выполняем ремонт, настройку и передаём рекомендации.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacts" id="contacts">
+    <div class="wrap">
+      <div class="contact-box reveal">
+        <div><h2>Есть проблема на объекте?</h2><p>Отправьте описание, фото или видео. На сайте предусмотрены прямые переходы в WhatsApp, Telegram и электронную почту.</p></div>
+        <div class="contact-actions">
+          <button data-contact="whatsapp">WhatsApp <span>↗</span></button>
+          <button data-contact="telegram">Telegram <span>↗</span></button>
+          <button data-contact="email">Электронная почта <span>↗</span></button>
+          <small>Реальные контакты добавляются в конфигурацию без изменения дизайна.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap foot"><strong>Проект Элеватор</strong><span>Ремонт и модернизация зерновых объектов · © <i id="year"></i></span></div></footer>
+<div class="toast" id="toast"></div>
+</body>
+</html>
