@@ -298,7 +298,7 @@ svg{display:block}
 }
 .contact-actions span{display:block;font-weight:850}
 .contact-actions b{display:block;color:#9eaaaf;font-size:12px;font-weight:500}
-.contact-actions i{font-style:normal;color:#e7a97d;font-size:19px}
+.link-arrow{width:20px;height:20px;fill:none;stroke:#e7a97d;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
 .footer{background:#182126;color:#9aa4a8;border-top:1px solid rgba(255,255,255,.08);padding:28px 0 34px}
 .footer-inner{display:grid;grid-template-columns:1fr auto auto;gap:28px;align-items:center;font-size:13px}
