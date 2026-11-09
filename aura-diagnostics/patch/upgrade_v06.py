@@ -24,6 +24,27 @@ s=s.replace(needle,needle+'''
 start='    private void exportTxt() {'
 assert start in s
 s=s.replace(start,Path("aura-diagnostics/patch/backup_ui.txt").read_text(encoding="utf-8")+"\n"+start,1)
+
+on_result='''        if (request == FULL_BACKUP_DIR_REQUEST && result == Activity.RESULT_OK
+                && data != null && data.getData() != null) {
+            Uri tree=data.getData();
+            try {
+                getContentResolver().takePersistableUriPermission(
+                    tree, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            } catch(Exception ignored) { /* Permission lasts for this app session. */ }
+            confirmFullBackup(tree);
+            return;
+        }
+'''
+old='''        super.onActivityResult(request, result, data);'''
+assert s.count(old)==1
+s=s.replace(old,old+"\n"+on_result,1)
+s=s.replace(
+    "Все проверки только для чтения: приложение не устанавливает прошивку, не делает резервные копии и не разблокирует загрузчик.",
+    "Диагностика только читает данные. Полный образ eMMC возможен только с root в Recovery, по отдельному подтверждению. Приложение не прошивает телевизор и не разблокирует загрузчик."
+)
+activity.write_text(s)
+
 activity.write_text(s)
 gradle=base/"app/build.gradle"
 s=gradle.read_text()
