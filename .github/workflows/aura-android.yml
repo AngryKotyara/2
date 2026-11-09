@@ -39,6 +39,8 @@ jobs:
               s=s.replace(old,new,1)
           p.write_text(s)
           PY
+      - name: Add TXT export and native Android file sharing
+        run: python3 aura-diagnostics/patch/upgrade.py
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -65,6 +67,6 @@ jobs:
           sha256sum "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: AURA-Diagnostics-Android-v0.2-compat
+          name: AURA-Diagnostics-Android-v0.3-TXT
           path: aura-diagnostics/project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
