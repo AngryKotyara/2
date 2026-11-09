@@ -1,0 +1,40 @@
+
+    /**
+     * Streams a raw ADB exec service (no PTY). This MUST NOT be used with a
+     * shell: service to transfer image bytes because a PTY can corrupt data.
+     * The caller checks exact byte counts and verifies output hashes.
+     */
+    public long execToStream(String command, OutputStream sink, long expected,
+                             java.util.function.LongConsumer progress) throws Exception {
+        if (command.indexOf('\n') >= 0 || command.indexOf('\r') >= 0)
+            throw new IllegalArgumentException("Newlines prohibited");
+        int local = nextLocal++;
+        send(OPEN, local, 0, ("exec:" + command + "\u0000").getBytes(StandardCharsets.UTF_8));
+        int remote=-1;
+        long written=0;
+        while (true) {
+            Packet p=read();
+            if (p.arg1 != local) throw new IOException("Unexpected concurrent ADB stream");
+            if (p.command == OKAY) { remote=p.arg0; continue; }
+            if (p.command == WRTE) {
+                if (remote < 0) remote=p.arg0;
+                if (remote != p.arg0) throw new IOException("ADB stream identity mismatch");
+                if (written+p.data.length > expected)
+                    throw new IOException("Device sent more bytes than expected: " + expected);
+                sink.write(p.data);
+                written += p.data.length;
+                send(OKAY,local,remote,new byte[0]);
+                if (progress != null) progress.accept(written);
+                continue;
+            }
+            if (p.command == CLSE) {
+                if (remote < 0) remote=p.arg0;
+                send(CLSE,local,remote,new byte[0]);
+                sink.flush();
+                if (written != expected)
+                    throw new IOException("Incomplete image chunk: " + written + "/" + expected);
+                return written;
+            }
+            throw new IOException("Unexpected ADB stream packet");
+        }
+    }
