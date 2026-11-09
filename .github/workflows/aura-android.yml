@@ -41,6 +41,12 @@ jobs:
           PY
       - name: Add TXT export and native Android file sharing
         run: python3 aura-diagnostics/patch/upgrade.py
+      - name: Apply AURA v0.4 firmware-readiness checks
+        shell: bash
+        run: |
+          base64 -d aura-diagnostics/patch/aura-v04-overlay.tar.gz.b64 > /tmp/aura-v04-overlay.tar.gz
+          echo "d12d97f4b73f46fd13851f59c743aed30a7187f92b6f4f1454dd470f8535e2bd  /tmp/aura-v04-overlay.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/aura-v04-overlay.tar.gz -C aura-diagnostics/project
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -67,6 +73,6 @@ jobs:
           sha256sum "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: AURA-Diagnostics-Android-v0.3-TXT
+          name: AURA-Diagnostics-Android-v0.4-Firmware-Check
           path: aura-diagnostics/project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
