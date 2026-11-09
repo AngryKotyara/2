@@ -36,7 +36,7 @@ replace('''                    scanButton.setEnabled(true);
     }
 
     static boolean isLanIpv4''')
-replace('Все проверки только для чтения:', 'Проверки Investigator только для чтения:')
+replace('Диагностика только читает данные.', 'Диагностика и Investigator только читают данные.')
 activity.write_text(s,encoding="utf-8")
 gradle=base/"app/build.gradle"
 g=gradle.read_text(encoding="utf-8")
