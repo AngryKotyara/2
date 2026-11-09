@@ -66,6 +66,8 @@ jobs:
           g = g.replace("versionCode 4", "versionCode 5").replace("versionName '0.4.0'", "versionName '0.4.1'")
           gradle.write_text(g)
           PY
+      - name: Add 15 alternative read-only Deep Scan checks
+        run: python3 aura-diagnostics/patch/upgrade_v05.py
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -92,6 +94,6 @@ jobs:
           sha256sum "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: AURA-Diagnostics-Android-v0.4.1-Firmware-Check
+          name: AURA-Diagnostics-Android-v0.5-Deep-Scan
           path: aura-diagnostics/project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
