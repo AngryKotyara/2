@@ -1,0 +1,135 @@
+
+    private static final int FULL_BACKUP_DIR_REQUEST=103;
+    private FullBackup.Plan backupPlan;
+    private String backupHost;
+    private int backupAdbPort;
+
+    private void checkBackupAccess() {
+        String ip=ipInput.getText().toString().trim();
+        if(!isLanIpv4(ip)) {
+            status.setText("Укажи IP телевизора в локальной сети");
+            return;
+        }
+        int port;
+        try { port=Integer.parseInt(portInput.getText().toString().trim()); }
+        catch(Exception e){status.setText("Некорректный порт ADB");return;}
+        if(port<=0||port>65535){status.setText("Некорректный порт");return;}
+        backupButton.setEnabled(false);
+        scanButton.setEnabled(false);
+        status.setText("Проверяем, доступен ли полный eMMC-бэкап…");
+        details.setText("Запись на телевизор не выполняется. Требуются root-права внутри Recovery.");
+        workers.execute(() -> {
+            try {
+                AdbKey key=AdbKey.loadOrCreate(getFilesDir());
+                try(AdbClient adb=new AdbClient()){
+                    adb.connect(ip,port,key,text -> main.post(() -> status.setText(text)));
+                    FullBackup.Plan plan=FullBackup.inspect(adb);
+                    main.post(() -> {
+                        backupPlan=plan;
+                        backupHost=ip;
+                        backupAdbPort=port;
+                        backupButton.setEnabled(true);
+                        scanButton.setEnabled(true);
+                        if(!plan.allowed){
+                            status.setText("Полный бэкап заблокирован: нет необходимых прав");
+                            details.setText(plan.explanation
+                                + "\n\nТекущий ADB shell не может снять полный образ eMMC. "
+                                + "Используйте совместимый TWRP/Recovery с root ADB и затем повторите проверку.");
+                            return;
+                        }
+                        status.setText("Recovery допускает чтение eMMC");
+                        details.setText(plan.explanation
+                            + "\n\nВажно: требуется примерно " + FullBackup.formatSize(plan.total)
+                            + " свободного места на телефоне или подключённом к нему USB-накопителе. "
+                            + "Копия содержит конфиденциальные пользовательские данные. "
+                            + "Чтение может занять несколько часов. "
+                            + "Отдельная проверка восстановления обязательна.");
+                        new android.app.AlertDialog.Builder(this)
+                            .setTitle("Доступно резервное копирование")
+                            .setMessage("Проверка показала права чтения eMMC: "
+                                + FullBackup.formatSize(plan.total)
+                                + ". Будут сохранены mmcblk0, mmcblk0boot0 и mmcblk0boot1. "
+                                + "RPMB и аппаратные ключи не копируются.\n\n"
+                                + "Выбрать папку на накопителе для резервной копии?")
+                            .setPositiveButton("Выбрать папку", (d,which) -> {
+                                Intent choose=new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                choose.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
+                                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
+                                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                startActivityForResult(choose,FULL_BACKUP_DIR_REQUEST);
+                            }).setNegativeButton("Отмена",null).show();
+                    });
+                }
+            } catch(Exception e){
+                main.post(() -> {
+                    backupButton.setEnabled(true);
+                    scanButton.setEnabled(true);
+                    status.setText("Не удалось проверить права");
+                    details.setText("Доступ блокирован, резервная копия не создавалась. "
+                        + String.valueOf(e.getMessage()));
+                });
+            }
+        });
+    }
+
+    private void confirmFullBackup(Uri tree) {
+        FullBackup.Plan plan=backupPlan;
+        if(plan==null || !plan.allowed) {
+            status.setText("Сначала проверь доступ к разделам");
+            return;
+        }
+        new android.app.AlertDialog.Builder(this)
+            .setTitle("Скопировать сырые разделы eMMC?")
+            .setMessage("Объём: "+FullBackup.formatSize(plan.total)
+                + ". Убедись, что на выбранном накопителе достаточно места, "
+                + "телевизор работает из Recovery и питание стабильно.\n\n"
+                + "По Wi-Fi может понадобиться несколько часов. "
+                + "Не выключай телевизор или телефон. "
+                + "Это НЕ копия RPMB и НЕ гарантия восстановления.")
+            .setPositiveButton("Начать бэкап", (d,which)->startFullBackup(tree,plan))
+            .setNegativeButton("Отмена",null)
+            .show();
+    }
+
+    private void startFullBackup(Uri tree,FullBackup.Plan plan) {
+        backupButton.setEnabled(false);
+        scanButton.setEnabled(false);
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        status.setText("Сохраняем полный образ доступных областей eMMC…");
+        progress.setProgress(0);
+        workers.execute(() -> {
+            try {
+                AdbKey key=AdbKey.loadOrCreate(getFilesDir());
+                try(AdbClient adb=new AdbClient()){
+                    adb.connect(backupHost,backupAdbPort,key,text -> main.post(() -> status.setText(text)));
+                    org.json.JSONObject result=FullBackup.copy(getContentResolver(),tree,adb,plan,
+                      (label,finished,total)->main.post(() -> {
+                          status.setText(label);
+                          progress.setProgress((int)Math.min(100,100.0*finished/total));
+                          count.setText(FullBackup.formatSize(finished)
+                               +" / "+FullBackup.formatSize(total));
+                      }));
+                    main.post(() -> {
+                        status.setText("Образы eMMC сохранены и проверены SHA-256");
+                        details.setText("Создан MANIFEST_COMPLETE.json; "
+                           + "прочитаны mmcblk0, boot0 и boot1. "
+                           + "RPMB не включена, восстановление ещё не проверено. "
+                           + "Не отправляй содержимое образов посторонним.");
+                    });
+                }
+            } catch(Exception e) {
+                main.post(() -> {
+                    status.setText("Бэкап НЕ ЗАВЕРШЁН");
+                    details.setText("Перед повтором проверь питание, связь, доступ и место. "
+                        + "Незавершённая папка НЕ является пригодным для восстановления бэкапом.\n\n"
+                        + String.valueOf(e.getMessage()));
+                });
+            } finally {
+                main.post(() -> {
+                    backupButton.setEnabled(true);
+                    scanButton.setEnabled(true);
+                    getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                });
+            }
+        });
+    }
