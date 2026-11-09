@@ -1,0 +1,41 @@
+name: Build AURA Diagnostics APK
+on:
+  push:
+    branches:
+      - aura-diagnostics-android-build
+    paths:
+      - "aura-diagnostics/**"
+      - ".github/workflows/aura-android.yml"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble source archive
+        shell: bash
+        run: |
+          mkdir -p aura-diagnostics/project
+          cat aura-diagnostics/src-0{0,1,2,3,4}.txt | base64 -d > /tmp/aura-src.tar.xz
+          echo "e575b6581de696cab3b5841abeaf3f21212bfa2c9baed31ccc30ceaf7c599da9  /tmp/aura-src.tar.xz" | sha256sum -c -
+          tar -xJf /tmp/aura-src.tar.xz -C aura-diagnostics/project
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: android-actions/setup-android@v3
+      - name: Install Android SDK
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+      - name: Compile Android APK
+        run: gradle --no-daemon -p aura-diagnostics/project assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AURA-Diagnostics-Android-debug
+          path: aura-diagnostics/project/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
