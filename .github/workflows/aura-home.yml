@@ -1,0 +1,44 @@
+name: Build AURA Home Prototype APK
+on:
+  push:
+    branches:
+      - aura-home-prototype
+    paths:
+      - "aura-home/**"
+      - ".github/workflows/aura-home.yml"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Ensure Android SDK 35
+        shell: bash
+        run: |
+          SDKMGR="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | sort -V | tail -1)"
+          test -n "$SDKMGR"
+          "$SDKMGR" "platforms;android-35" "build-tools;35.0.0"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+      - name: Build APK
+        run: gradle --no-daemon -p aura-home assembleDebug
+      - name: Validate Android APK
+        run: |
+          APK="aura-home/app/build/outputs/apk/debug/app-debug.apk"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --min-sdk-version 28 "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | head -22
+          "$ANDROID_HOME/build-tools/35.0.0/zipalign" -c 4 "$APK"
+          sha256sum "$APK"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AURA-Home-v0.1-Preview-APK
+          path: aura-home/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
