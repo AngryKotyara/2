@@ -1,0 +1,70 @@
+
+    private void runInvestigator() {
+        String ip=ipInput.getText().toString().trim();
+        if(!isLanIpv4(ip)){
+            status.setText("Укажи локальный IP-адрес телевизора");
+            return;
+        }
+        int port;
+        try { port=Integer.parseInt(portInput.getText().toString().trim()); }
+        catch(Exception e){status.setText("Некорректный порт");return;}
+        if(port<1||port>65535){status.setText("Некорректный порт");return;}
+        lastReport=null;
+        investigatorButton.setEnabled(false);
+        scanButton.setEnabled(false);
+        backupButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        shareButton.setEnabled(false);
+        progress.setProgress(0);
+        count.setText("Этап 0 / "+FirmwareInvestigator.stages());
+        status.setText("AURA Firmware Investigator · подключение");
+        details.setText("Работает только чтение. Не запускается Recovery, не выполняется прошивка.");
+        workers.execute(() -> {
+            try {
+                AdbKey key=AdbKey.loadOrCreate(getFilesDir());
+                try(AdbClient adb=new AdbClient()){
+                    adb.connect(ip,port,key,msg->main.post(()->status.setText(msg)));
+                    JSONObject report=FirmwareInvestigator.scan(adb,
+                      (done,total,label)->main.post(()->{
+                          status.setText("Пазл прошивки: "+label);
+                          count.setText("Этап "+done+" / "+total);
+                          progress.setProgress((done*100)/total);
+                          details.setText("Сбор доказательств: "+label
+                              + "\nНикаких изменений в памяти телевизора.");
+                      }));
+                    main.post(()->{
+                        lastReport=report.toString();
+                        JSONObject summary=report.optJSONObject("summary");
+                        JSONObject facts=report.optJSONObject("facts");
+                        JSONObject platform=facts==null?null:facts.optJSONObject("platform");
+                        JSONObject backup=facts==null?null:facts.optJSONObject("raw_backup_rights");
+                        status.setText("Firmware Investigator · 5 этапов выполнено");
+                        count.setText("5 / 5 этапов");
+                        progress.setProgress(100);
+                        details.setText("Платформа: "+(platform==null?"неизвестно":platform.optString("value"))
+                            + "\nДоступные ответы: "+summary.optInt("evidence_available")
+                            + "\nSHA-256 файлов: "+summary.optInt("verified_file_hashes")
+                            + "\nНет доступа: "+summary.optInt("access_denied")
+                            + "\nНеизвестно: "+summary.optInt("unknown")
+                            + "\nБэкап: "+(backup==null?"нет данных":backup.optString("value"))
+                            + "\n\nСЛЕДУЮЩИЕ ШАГИ: смотри next_read_only_steps в TXT."
+                            + "\nГОТОВНОСТЬ К ПРОШИВКЕ: НЕ ПОДТВЕРЖДЕНА.");
+                        saveButton.setEnabled(true);
+                        shareButton.setEnabled(true);
+                    });
+                }
+            } catch(Exception e){
+                main.post(()->{
+                    status.setText("Investigator: сбор не завершён");
+                    details.setText("Не удалось выполнить все этапы; недостоверный отчёт не сохраняется.\n"+
+                        String.valueOf(e.getMessage()));
+                });
+            } finally {
+                main.post(()->{
+                    investigatorButton.setEnabled(true);
+                    scanButton.setEnabled(true);
+                    backupButton.setEnabled(true);
+                });
+            }
+        });
+    }
