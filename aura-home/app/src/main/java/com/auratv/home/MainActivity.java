@@ -110,7 +110,7 @@ public class MainActivity extends Activity {
       if(tv!=null)for(TvInputInfo info:tv.getTvInputList()){
         if(info.getType()!=TvInputInfo.TYPE_HDMI)continue;
         if(tv.getInputState(info.getId())!=TvInputManager.INPUT_STATE_CONNECTED)continue;
-        String name=String.valueOf(info.loadLabel(getPackageManager()));
+        String name=String.valueOf(info.loadLabel(this));
         TextView tile=card("▱  "+name,175,65,v->hdmi(info));
         tile.setTag(info);sourceRow.addView(tile,params(175,65,9,0));count++;
       }
@@ -161,7 +161,7 @@ public class MainActivity extends Activity {
     catch(Exception e){Toast.makeText(this,"Настройки недоступны",Toast.LENGTH_SHORT).show();}
   }
   void hdmi(TvInputInfo input){
-    String name=String.valueOf(input.loadLabel(getPackageManager()));
+    String name=String.valueOf(input.loadLabel(this));
     LinearLayout box=col();box.setPadding(dp(25),dp(20),dp(25),dp(20));box.setBackground(bg(0xff2f2842,0xff151520,20,0xffab8aff));
     box.addView(label("▱  "+name,24,WHITE,true),params(-1,50,0,7));
     box.addView(label("Сигнал: подключение обнаружено",16,0xffa3efb7,true),params(-1,45,0,9));
