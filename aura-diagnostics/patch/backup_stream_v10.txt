@@ -1,0 +1,63 @@
+
+    /**
+     * Binary-safe, read-only ADB "exec:" stream transfer (no PTY).
+     * Handles delayed control packets for earlier already-closed streams:
+     * legacy shell() may leave an old OKAY/CLSE in the TCP receive queue.
+     * No other stream is opened concurrently on this client.
+     */
+    public long execToStream(String command, OutputStream sink, long expected,
+                             java.util.function.LongConsumer progress) throws Exception {
+        if (command.indexOf('\n') >= 0 || command.indexOf('\r') >= 0)
+            throw new IllegalArgumentException("Newlines prohibited");
+        if (expected < 0)
+            throw new IllegalArgumentException("Expected byte count must be nonnegative");
+        final int local=nextLocal++;
+        send(OPEN,local,0,("exec:"+command+"\u0000").getBytes(StandardCharsets.UTF_8));
+        int remote=-1;
+        int stale=0;
+        long written=0;
+        while(true){
+            Packet p=read();
+            if(p.arg1!=local) {
+                // Already finished shell channels can still have control messages in flight.
+                // Never interpret their payload as bytes belonging to this file.
+                if(p.arg1>0 && p.arg1<local && stale++<256) {
+                    if(p.command==OKAY || p.command==CLSE) continue;
+                    // An unexpected old WRTE must not block the pending file stream.
+                    if(p.command==WRTE) {
+                        send(CLSE,p.arg1,p.arg0,new byte[0]);
+                        continue;
+                    }
+                }
+                throw new IOException("Unexpected ADB stream packet from another channel: "+
+                    name(p.command)+" local="+p.arg1+" expected="+local);
+            }
+            if(p.command==OKAY) {
+                if(remote!=-1 && remote!=p.arg0)
+                    throw new IOException("ADB stream remote ID changed");
+                remote=p.arg0;
+                continue;
+            }
+            if(p.command==WRTE) {
+                if(remote<0)remote=p.arg0;
+                if(remote!=p.arg0)throw new IOException("ADB stream identity mismatch");
+                if((long)p.data.length > expected-written)
+                    throw new IOException("Device sent more bytes than expected: "+expected);
+                sink.write(p.data);
+                written+=p.data.length;
+                send(OKAY,local,remote,new byte[0]);
+                if(progress!=null)progress.accept(written);
+                continue;
+            }
+            if(p.command==CLSE) {
+                if(remote<0)remote=p.arg0;
+                if(remote!=p.arg0)throw new IOException("ADB closing wrong channel");
+                send(CLSE,local,remote,new byte[0]);
+                sink.flush();
+                if(written!=expected)
+                    throw new IOException("Incomplete file: "+written+"/"+expected+" bytes");
+                return written;
+            }
+            throw new IOException("Unexpected ADB file packet: "+name(p.command));
+        }
+    }
