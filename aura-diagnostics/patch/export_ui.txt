@@ -1,0 +1,115 @@
+
+    private static final int FIRMWARE_ZIP_REQUEST=104;
+    private String firmwareExportHost;
+    private int firmwareExportPort;
+
+    private void chooseFirmwareExport() {
+        String ip=ipInput.getText().toString().trim();
+        if(!isLanIpv4(ip)){
+            status.setText("Укажи IP-адрес телевизора в локальной сети");
+            return;
+        }
+        int port;
+        try {port=Integer.parseInt(portInput.getText().toString().trim());}
+        catch(Exception e){status.setText("Некорректный порт ADB");return;}
+        if(port<=0||port>65535){status.setText("Некорректный порт ADB");return;}
+        firmwareExportHost=ip;
+        firmwareExportPort=port;
+        new android.app.AlertDialog.Builder(this)
+            .setTitle("Экспорт заводских файлов на телефон")
+            .setMessage("Создадим ZIP из доступных оригинальных файлов Xiaomi: MiTVUpgrade.apk, "
+               +"fstab.amlogic и DroidLogicTvInput.apk.\n\n"
+               +"На телевизоре ничего не изменяется. Это НЕ образ eMMC или полный бэкап. "
+               +"Если некоторый файл недоступен, он будет отмечен как пропущенный.")
+            .setPositiveButton("Выбрать место", (dialog,which)->{
+                Intent file=new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                file.addCategory(Intent.CATEGORY_OPENABLE);
+                file.setType("application/zip");
+                file.putExtra(Intent.EXTRA_TITLE,"AURA_TV_Original_Firmware_Files.zip");
+                file.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                            | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                startActivityForResult(file,FIRMWARE_ZIP_REQUEST);
+            })
+            .setNegativeButton("Отмена",null).show();
+    }
+
+    private void shareFirmwareZip(Uri uri) {
+        Intent send=new Intent(Intent.ACTION_SEND);
+        send.setType("application/zip");
+        send.putExtra(Intent.EXTRA_STREAM,uri);
+        send.setClipData(android.content.ClipData.newUri(
+            getContentResolver(),"AURA Firmware Files",uri));
+        send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(send,"Поделиться архивом прошивки"));
+    }
+
+    private void startFirmwareExport(Uri uri){
+        exportButton.setEnabled(false);
+        investigatorButton.setEnabled(false);
+        backupButton.setEnabled(false);
+        scanButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        shareButton.setEnabled(false);
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        status.setText("Подготовка ZIP-архива прошивки…");
+        details.setText("Чтение оригинальных файлов с телевизора по ADB.");
+        progress.setProgress(0);
+        workers.execute(()->{
+            try {
+                AdbKey key=AdbKey.loadOrCreate(getFilesDir());
+                try(AdbClient adb=new AdbClient()){
+                    adb.connect(firmwareExportHost,firmwareExportPort,key,
+                        msg->main.post(()->status.setText(msg)));
+                    JSONObject report=FirmwareExporter.export(getContentResolver(),uri,adb,
+                        (stage,processed,total)->main.post(()->{
+                            status.setText(stage);
+                            progress.setProgress((int)Math.min(100,
+                                100.0*processed/Math.max(1L,total)));
+                            count.setText(stage);
+                        }));
+                    org.json.JSONArray files=report.optJSONArray("files");
+                    int saved=0,skipped=0;
+                    if(files!=null)for(int i=0;i<files.length();i++){
+                        JSONObject file=files.optJSONObject(i);
+                        if(file==null)continue;
+                        if("saved".equals(file.optString("status")))saved++;
+                        else skipped++;
+                    }
+                    final int ok=saved,skip=skipped;
+                    main.post(()->{
+                        status.setText("ZIP создан и проверен по SHA-256");
+                        count.setText("Файлов: "+ok);
+                        progress.setProgress(100);
+                        details.setText("Файлов сохранено: "+ok
+                            +"\nНе удалось прочитать: "+skip
+                            +"\nСоздан AURA_EXPORT_MANIFEST.json."
+                            +"\n\nЭто экспорт доступных файлов, НЕ полный бэкап eMMC.");
+                        new android.app.AlertDialog.Builder(this)
+                            .setTitle("Оригинальные файлы сохранены")
+                            .setMessage("Архив содержит "+ok+" файл(а/ов). Пропущено: "+skip
+                                +". Проверена SHA-256 переданных файлов и повторное чтение ZIP."
+                                +"\n\nМожешь отправить этот ZIP сюда для анализа.")
+                            .setPositiveButton("Поделиться ZIP",(d,w)->shareFirmwareZip(uri))
+                            .setNegativeButton("Позже",null).show();
+                    });
+                }
+            } catch(Exception e) {
+                main.post(()->{
+                    status.setText("Экспорт не завершён");
+                    details.setText("Файлы не были полностью подтверждены. "
+                        +"При ошибке приложение пытается удалить незавершённый ZIP.\n\n"
+                        +String.valueOf(e.getMessage()));
+                });
+            } finally {
+                main.post(()->{
+                    exportButton.setEnabled(true);
+                    investigatorButton.setEnabled(true);
+                    backupButton.setEnabled(true);
+                    scanButton.setEnabled(true);
+                    saveButton.setEnabled(lastReport!=null);
+                    shareButton.setEnabled(lastReport!=null);
+                    getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                });
+            }
+        });
+    }
