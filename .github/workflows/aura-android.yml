@@ -72,6 +72,8 @@ jobs:
         run: python3 aura-diagnostics/patch/upgrade_v06.py
       - name: Add AURA Firmware Investigator v0.7
         run: python3 aura-diagnostics/patch/upgrade_v07.py
+      - name: Add targeted firmware puzzle v0.8
+        run: python3 aura-diagnostics/patch/upgrade_v08.py
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -98,6 +100,6 @@ jobs:
           sha256sum "$APK"
       - uses: actions/upload-artifact@v4
         with:
-          name: AURA-Firmware-Investigator-v0.7
+          name: AURA-Firmware-Investigator-v0.8
           path: aura-diagnostics/project/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
