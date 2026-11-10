@@ -1,0 +1,86 @@
+
+    /**
+     * SAF export stays in the user-selected location, but some document
+     * providers report a 0-byte stream in ACTION_SEND. Reopen it, verify it,
+     * and prepare an app-owned read-only URI with correct SIZE metadata.
+     */
+    private long cacheAndValidateExport(Uri original) throws Exception {
+        java.io.File cache=ExportShareProvider.cachedZip(this);
+        java.io.File temp=new java.io.File(getCacheDir(),"aura_export_verification.part");
+        temp.delete();
+        long bytes=0;
+        java.security.MessageDigest sourceSha=java.security.MessageDigest.getInstance("SHA-256");
+        try(java.io.InputStream in=getContentResolver().openInputStream(original);
+            java.io.OutputStream out=new java.io.FileOutputStream(temp)) {
+            if(in==null)throw new java.io.IOException("SAF provider returned a null stream");
+            byte[] b=new byte[65536];
+            int n;
+            while((n=in.read(b))!=-1) {
+                out.write(b,0,n);
+                sourceSha.update(b,0,n);
+                bytes+=n;
+                if(bytes>512L*1024L*1024L)
+                    throw new java.io.IOException("Unexpected ZIP size (>512 MiB)");
+            }
+            out.flush();
+        }catch(Exception e){
+            temp.delete();
+            throw e;
+        }
+        if(bytes<512){
+            temp.delete();
+            throw new java.io.IOException("Сохранённый ZIP содержит "+bytes+
+                " байт. Экспорт не завершён; отправка запрещена.");
+        }
+        try(java.util.zip.ZipFile zip=new java.util.zip.ZipFile(temp)) {
+            if(zip.getEntry("AURA_EXPORT_MANIFEST.json")==null)
+                throw new java.io.IOException("В ZIP отсутствует итоговый манифест");
+            if(zip.getEntry("MiTVUpgrade.apk")==null
+                && zip.getEntry("fstab.amlogic")==null
+                && zip.getEntry("DroidLogicTvInput.apk")==null)
+                throw new java.io.IOException("В ZIP нет ни одного исходного файла");
+        }catch(Exception e) {
+            temp.delete();
+            throw e;
+        }
+        java.security.MessageDigest localSha=java.security.MessageDigest.getInstance("SHA-256");
+        try(java.io.InputStream input=new java.io.FileInputStream(temp)){
+            byte[] b=new byte[65536];int n;
+            while((n=input.read(b))!=-1)localSha.update(b,0,n);
+        }catch(Exception e){temp.delete();throw e;}
+        if(!java.util.Arrays.equals(sourceSha.digest(),localSha.digest())){
+            temp.delete();
+            throw new java.io.IOException("Ошибка контрольной суммы при копировании ZIP в кеш");
+        }
+        if(cache.exists() && !cache.delete()){
+            temp.delete();
+            throw new java.io.IOException("Не удалось заменить старый кеш ZIP");
+        }
+        if(!temp.renameTo(cache)){
+            temp.delete();
+            throw new java.io.IOException("Не удалось подготовить проверенный ZIP для отправки");
+        }
+        if(cache.length()!=bytes)throw new java.io.IOException("Несовпадение размера ZIP");
+        return bytes;
+    }
+
+    private void shareFirmwareZip(Uri original) {
+        java.io.File zip=ExportShareProvider.cachedZip(this);
+        if(!zip.isFile() || zip.length()<512){
+            new android.app.AlertDialog.Builder(this)
+                .setTitle("Нечего отправлять")
+                .setMessage("Проверенный архив не обнаружен или его размер 0 байт. "
+                    +"Повтори экспорт. Незавершённые архивы не отправляются.")
+                .setPositiveButton("Понятно",null).show();
+            return;
+        }
+        Uri content=ExportShareProvider.ZIP_URI;
+        Intent send=new Intent(Intent.ACTION_SEND);
+        send.setType("application/zip");
+        send.putExtra(Intent.EXTRA_STREAM,content);
+        send.setClipData(android.content.ClipData.newUri(
+            getContentResolver(),ExportShareProvider.FILE_NAME,content));
+        send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(send,"Отправить проверенный ZIP ("+
+            (zip.length()/1024L)+" КиБ)"));
+    }
